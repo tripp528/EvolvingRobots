@@ -3,14 +3,16 @@ import math
 
 import pyrosim
 import matplotlib.pyplot as plt
+import numpy as np
 
 #local
 from robot import ROBOT
 
 class INDIVIDUAL:
-    def __init__(self, eval_time=100):
+    def __init__(self, eval_time=400):
         self.eval_time = eval_time
-        self.genome = random.random()*2-1 # between [-1,1]
+        # self.genome = random.random()*2-1 # between [-1,1]
+        self.genome = np.random.random(4) * 2 - 1
         self.fitness = 0
 
     def evaluate(self,play_blind=True):
@@ -27,7 +29,8 @@ class INDIVIDUAL:
         # self.plotPosition(sim, robot)
 
     def mutate(self):
-        self.genome = random.gauss(self.genome, math.fabs(self.genome))
+        geneToMutate = random.randint(0,3)
+        self.genome[geneToMutate] = random.gauss(self.genome[geneToMutate], math.fabs(self.genome[geneToMutate]))
 
     def plotPosition(self, sim, robot):
         # get robot position at end
