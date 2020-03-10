@@ -19,7 +19,7 @@ hide_final = True
 save_checkpoints = True
 
 parents = POPULATION(popSize=1, eval_time=75)
-parents.evaluate(play_blind=False,play_paused=False)
+parents.evaluate(play_blind=False,play_paused=True)
 exit()
 print(parents)
 

@@ -1,5 +1,6 @@
 import pyrosim
 import matplotlib.pyplot as plt
+import constants as c
 
 class ROBOT:
     def __init__(self, sim, wts):
@@ -11,8 +12,17 @@ class ROBOT:
         # self.send_synapses(sim,wts)
 
     def send_objects(self,sim):
-        self.whiteObject = sim.send_cylinder(x=0,y=0,z=0.6,length=1.0, radius=0.1)
-        self.redObject = sim.send_cylinder(x=0,y=0.5,z=1.1, r=1,g=0,b=0, r1=0,r2=1, r3=0)
+        O0 = sim.send_box(x=0, y=0, z=c.L + c.R, length=c.L, width=c.L, height=2*c.R, r=0.5, g=0.5, b=0.5)
+        O1 = sim.send_cylinder(x=0,y=c.L,z=c.L + c.R, length=c.L,radius=c.R, r=1, g=0, b=0, r1=0,r2=1, r3=0)
+        O2 = sim.send_cylinder(x=c.L,y=0,z=c.L + c.R, length=c.L,radius=c.R, r=0, g=1, b=0, r1=1,r2=0, r3=0)
+        O3 = sim.send_cylinder(x=0,y=-c.L,z=c.L + c.R, length=c.L,radius=c.R, r=0, g=0, b=1, r1=0,r2=1, r3=0)
+        O4 = sim.send_cylinder(x=-c.L,y=0,z=c.L + c.R, length=c.L,radius=c.R, r=1, g=0, b=1, r1=1,r2=0, r3=0)
+
+        O5 = sim.send_cylinder(x=0,y=c.L*3/2,z=c.L/2 + c.R, length=c.L,radius=c.R, r=1, g=0, b=0, r1=0,r2=0, r3=1)
+        O6 = sim.send_cylinder(x=c.L*3/2,y=0,z=c.L/2 + c.R, length=c.L,radius=c.R, r=0, g=1, b=0, r1=0,r2=0, r3=1)
+        O7 = sim.send_cylinder(x=0,y=-c.L*3/2,z=c.L/2 + c.R, length=c.L,radius=c.R, r=0, g=0, b=1, r1=0,r2=0, r3=1)
+        O8 = sim.send_cylinder(x=-c.L*3/2,y=0,z=c.L/2 + c.R, length=c.L,radius=c.R, r=1, g=0, b=1, r1=0,r2=0, r3=1)
+
 
     def send_joints(self,sim):
         self.joint = sim.send_hinge_joint(x=0,y=0,z=1.1, n1=1,n2=0,n3=0,
