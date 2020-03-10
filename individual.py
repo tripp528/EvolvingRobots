@@ -19,7 +19,7 @@ class INDIVIDUAL:
 
     def start_evaluation(self,play_blind=True,play_paused=False):
         self.sim = pyrosim.Simulator(play_paused=play_paused,eval_time=self.eval_time, play_blind=play_blind)
-        self.robot = ROBOT(self.sim, wt=self.genome)
+        self.robot = ROBOT(self.sim, self.genome)
 
         self.sim.start()
 
