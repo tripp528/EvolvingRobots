@@ -9,28 +9,37 @@ import numpy as np
 from robot import ROBOT
 
 class INDIVIDUAL:
-    def __init__(self, eval_time=400):
+    def __init__(self, id, eval_time=400):
         self.eval_time = eval_time
         # self.genome = random.random()*2-1 # between [-1,1]
         self.genome = np.random.random(4) * 2 - 1
         self.fitness = 0
+        self.id = id
+        self.geneToMutate = -1 # not a real gene, placeholder
 
-    def evaluate(self,play_blind=True):
-        sim = pyrosim.Simulator(play_paused=False,eval_time=self.eval_time, play_blind=play_blind)
-        robot = ROBOT(sim, wt=self.genome)
+    def start_evaluation(self,play_blind=True,play_paused=False):
+        self.sim = pyrosim.Simulator(play_paused=play_paused,eval_time=self.eval_time, play_blind=play_blind)
+        self.robot = ROBOT(self.sim, wt=self.genome)
 
-        sim.start()
+        self.sim.start()
 
-        sim.wait_to_finish()
+    def compute_fitness(self):
+        self.sim.wait_to_finish()
 
-        y = sim.get_sensor_data(sensor_id = robot.P4, svi=1)
+        y = self.sim.get_sensor_data(sensor_id = self.robot.P4, svi=1)
         self.fitness = y[-1] #negative because we want into the screen
 
-        # self.plotPosition(sim, robot)
+        del self.sim
 
     def mutate(self):
-        geneToMutate = random.randint(0,3)
-        self.genome[geneToMutate] = random.gauss(self.genome[geneToMutate], math.fabs(self.genome[geneToMutate]))
+        self.geneToMutate = random.randint(0,3)
+        self.genome[self.geneToMutate] = random.gauss(self.genome[self.geneToMutate], math.fabs(self.genome[self.geneToMutate]))
+
+    def __str__(self):
+        return str(self.id) +": "+ str(self.fitness) # + " mutated " + str(self.geneToMutate)
+
+    def __repr__(self):
+        return self.__str__()
 
     def plotPosition(self, sim, robot):
         # get robot position at end
