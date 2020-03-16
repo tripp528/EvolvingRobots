@@ -12,7 +12,7 @@ class INDIVIDUAL:
     def __init__(self, id, eval_time=400):
         self.eval_time = eval_time
         # self.genome = random.random()*2-1 # between [-1,1]
-        self.genome = np.random.random(4) * 2 - 1
+        self.genome = np.random.rand(4,8) * 2 - 1
         self.fitness = 0
         self.id = id
         self.geneToMutate = -1 # not a real gene, placeholder
@@ -32,8 +32,16 @@ class INDIVIDUAL:
         del self.sim
 
     def mutate(self):
-        self.geneToMutate = random.randint(0,3)
-        self.genome[self.geneToMutate] = random.gauss(self.genome[self.geneToMutate], math.fabs(self.genome[self.geneToMutate]))
+        self.geneToMutate = random.randint(0,3), random.randint(0,7)
+        newval = random.gauss(self.genome[self.geneToMutate], math.fabs(self.genome[self.geneToMutate]))
+
+        # make sure between -1 and 1
+        if newval < -1:
+            new = -1
+        if newval > 1:
+            newval = 1
+
+        self.genome[self.geneToMutate] = newval
 
     def __str__(self):
         return str(self.id) +": "+ str(self.fitness) # + " mutated " + str(self.geneToMutate)

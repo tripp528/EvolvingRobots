@@ -18,16 +18,20 @@ hide_new_replacements = True
 hide_final = True
 save_checkpoints = True
 
-parents = POPULATION(popSize=20, eval_time=500)
+parents = POPULATION(popSize=5, eval_time=500)
+parents.initialize()
 parents.evaluate(play_blind=True,play_paused=False)
-# exit()
+
 print(parents)
 
-for g in range(2):
-    children = copy.deepcopy(parents)
-    children.mutate()
-    children.evaluate(play_blind=True,play_paused=False)
-    parents.replaceWith(children)
-    print(g,parents)
-
-parents.playbest()
+#
+for g in range(1):
+    children = POPULATION(parents=parents)
+    print(children)
+#     children = copy.deepcopy(parents)
+#     children.mutate()
+#     children.evaluate(play_blind=True,play_paused=False)
+#     parents.replaceWith(children)
+#     print(g,parents)
+#
+# parents.playbest()
