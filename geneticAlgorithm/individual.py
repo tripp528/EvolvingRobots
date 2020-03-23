@@ -17,17 +17,18 @@ class INDIVIDUAL:
         self.id = id
         self.geneToMutate = -1 # not a real gene, placeholder
 
-    def start_evaluation(self,env,play_blind=True,play_paused=False):
+    def start_evaluation(self,play_blind=True,play_paused=False):
         self.sim = pyrosim.Simulator(play_paused=play_paused,eval_time=self.eval_time, play_blind=play_blind)
         self.robot = ROBOT(self.sim, self.genome)
-        env.send_to(self.sim)
+
         self.sim.start()
 
     def compute_fitness(self):
         self.sim.wait_to_finish()
-        y = self.sim.get_sensor_data(sensor_id = self.robot.L4)
-        # add instead of set: need to avg all 4 envs
-        self.fitness += y[-1] # how close to light source
+
+        y = self.sim.get_sensor_data(sensor_id = self.robot.P4, svi=1)
+        self.fitness = y[-1] #negative because we want into the screen
+
         del self.sim
 
     def mutate(self):
@@ -47,3 +48,25 @@ class INDIVIDUAL:
 
     def __repr__(self):
         return self.__str__()
+
+    def plotPosition(self, sim, robot):
+        # get robot position at end
+        x = sim.get_sensor_data(sensor_id = robot.P4, svi=0)
+        y = sim.get_sensor_data(sensor_id = robot.P4, svi=1)
+        z = sim.get_sensor_data(sensor_id = robot.P4, svi=2)
+
+        f = plt.figure()
+        ax = f.add_subplot(221)
+        ax.plot(x)
+        ax.set_title("X Position")
+
+        ax = f.add_subplot(222)
+        ax.plot(y)
+        ax.set_title("Y Position")
+
+        ax = f.add_subplot(223)
+        ax.plot(z)
+        ax.set_title("Z Position")
+
+        plt.tight_layout()
+        plt.show()

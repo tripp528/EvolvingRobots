@@ -4,9 +4,8 @@ import random
 from individual import INDIVIDUAL
 
 class POPULATION:
-    def __init__(self, envs, popSize=5, eval_time=400, parents=None):
+    def __init__(self, popSize=5, eval_time=400, parents=None):
         self.p = {}
-        self.envs = envs.envs
         self.popSize = popSize
         self.eval_time = eval_time
 
@@ -24,17 +23,9 @@ class POPULATION:
 
     def evaluate(self,play_blind=True,play_paused=False):
         for ind in self.p:
-            self.p[ind].fitness = 0
-        for e in self.envs:
-            env = self.envs[e]
-            for ind in self.p:
-                self.p[ind].start_evaluation(env,play_blind=play_blind,play_paused=play_paused)
-            for ind in self.p:
-                self.p[ind].compute_fitness()
-
+            self.p[ind].start_evaluation(play_blind=play_blind,play_paused=play_paused)
         for ind in self.p:
-            print("num envs: ", len(self.envs))
-            self.p[ind].fitness = self.p[ind].fitness / len(self.envs)
+            self.p[ind].compute_fitness()
 
     def playbest(self):
         maxFit = 0

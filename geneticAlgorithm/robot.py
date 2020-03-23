@@ -88,8 +88,7 @@ class ROBOT:
         self.S[2] = sim.send_touch_sensor(body_id = self.O[7])
         self.S[3] = sim.send_touch_sensor(body_id = self.O[8])
 
-        # self.P4 = sim.send_position_sensor(body_id = self.O[0])
-        self.L4 = sim.send_light_sensor( body_id = self.O[0] )
+        self.P4 = sim.send_position_sensor(body_id = self.O[0])
 
     def send_neurons(self,sim):
         # sensor neurons
