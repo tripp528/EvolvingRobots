@@ -11,6 +11,8 @@ from robot import ROBOT
 class INDIVIDUAL:
     def __init__(self, id, eval_time=400):
         self.eval_time = eval_time
+
+        # now genome will be code for making a neural net with NEAT
         self.genome = np.random.rand(5,8) * 2 - 1
         self.fitness = 0
         self.id = id
