@@ -11,7 +11,6 @@ from robot import ROBOT
 class INDIVIDUAL:
     def __init__(self, id, eval_time=400):
         self.eval_time = eval_time
-        # self.genome = random.random()*2-1 # between [-1,1]
         self.genome = np.random.rand(5,8) * 2 - 1
         self.fitness = 0
         self.id = id
