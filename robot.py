@@ -83,13 +83,15 @@ class ROBOT:
     def send_sensors(self,sim):
         #sensors
         self.S = {}
+
         self.S[0] = sim.send_touch_sensor(body_id = self.O[5])
         self.S[1] = sim.send_touch_sensor(body_id = self.O[6])
         self.S[2] = sim.send_touch_sensor(body_id = self.O[7])
         self.S[3] = sim.send_touch_sensor(body_id = self.O[8])
 
         # self.P4 = sim.send_position_sensor(body_id = self.O[0])
-        self.L4 = sim.send_light_sensor( body_id = self.O[0] )
+        self.S[4] = sim.send_light_sensor( body_id = self.O[0] )
+        self.L4 = self.S[4] # since self.S gets deleted
 
     def send_neurons(self,sim):
         # sensor neurons

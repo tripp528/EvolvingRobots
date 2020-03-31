@@ -18,14 +18,14 @@ envs = ENVIRONMENTS(numEnvs=constants.numEnvs, eval_time=constants.eval_time)
 # create initial population
 parents = POPULATION(envs,popSize=constants.popSize, eval_time=constants.eval_time)
 parents.initialize()
-parents.evaluate(play_blind=False,play_paused=False)
+parents.evaluate(play_blind=True,play_paused=False)
 print(0,parents)
 
 # evolve:
-# for g in range(constants.numGen):
-#     children = POPULATION(parents=parents)
-#     children.fillFrom(parents)
-#     children.evaluate(play_blind=True,play_paused=False)
-#     parents.replaceWith(children)
-#     print(g+1,parents)
-# parents.playbest()
+for g in range(constants.numGen):
+    children = POPULATION(envs,parents=parents)
+    children.fillFrom(parents)
+    children.evaluate(play_blind=True,play_paused=False)
+    parents.replaceWith(children)
+    print(g+1,parents)
+parents.playbest()

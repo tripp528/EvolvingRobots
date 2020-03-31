@@ -11,14 +11,14 @@ class ENVIRONMENT:
         # initialize position to 0,0,0
         self.x = 0
         self.y = 0
-        self.z = 0
+        self.z = constants.L /2
         if id == 0: #front
             self.y = 30 * constants.L # pos y is "front"
         if id == 1: #right
             self.x = 30 * constants.L
         if id == 2: #back
             self.y = -30 * constants.L
-        if id == 3: #left 
+        if id == 3: #left
             self.x = -30 * constants.L
 
 

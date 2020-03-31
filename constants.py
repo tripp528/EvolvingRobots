@@ -2,7 +2,7 @@ L = 0.1
 
 R = L/5
 
-eval_time =  75
-popSize = 1
-numGen = 1
+eval_time =  1000
+popSize = 10
+numGen = 200
 numEnvs = 4

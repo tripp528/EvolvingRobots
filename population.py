@@ -31,9 +31,10 @@ class POPULATION:
                 self.p[ind].start_evaluation(env,play_blind=play_blind,play_paused=play_paused)
             for ind in self.p:
                 self.p[ind].compute_fitness()
+            # print(self)
 
         for ind in self.p:
-            print("num envs: ", len(self.envs))
+            # print("num envs: ", len(self.envs))
             self.p[ind].fitness = self.p[ind].fitness / len(self.envs)
 
     def playbest(self):
@@ -42,8 +43,11 @@ class POPULATION:
         for ind in self.p:
             if self.p[ind].fitness > maxFit:
                 maxInd = ind
-        self.p[maxInd].start_evaluation(play_blind=False,play_paused=True)
-        self.p[maxInd].compute_fitness()
+
+        for e in self.envs:
+            env = self.envs[e]
+            self.p[maxInd].start_evaluation(env,play_blind=False,play_paused=False)
+            self.p[maxInd].compute_fitness()
 
     def mutate(self):
         for ind in self.p:
