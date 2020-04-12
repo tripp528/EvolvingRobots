@@ -7,11 +7,18 @@ import numpy as np
 
 #local
 from robot import ROBOT
+from cppn import CPPN
 
 class INDIVIDUAL:
     def __init__(self, id, eval_time=400):
         self.eval_time = eval_time
-        self.genome = np.random.rand(5,8) * 2 - 1
+
+        # self.genome = np.random.rand(5,8) * 2 - 1
+        xdim,ydim,cdim = (5,8,1)
+        cppn = CPPN(xdim,ydim,cdim,num_hidden=0,scale=10, n_nodes=1)
+        self.genome = cppn(None).numpy().reshape(xdim,ydim,cdim).squeeze()
+        print(self.genome)
+
         self.fitness = 0
         self.id = id
         self.geneToMutate = -1 # not a real gene, placeholder
