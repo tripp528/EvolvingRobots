@@ -14,13 +14,13 @@ class POPULATION:
             self.popSize = parents.popSize
             self.eval_time = parents.eval_time
 
-    def initialize(self):
-        for i in range(self.popSize):
-            self.p[i] = INDIVIDUAL(i,eval_time=self.eval_time)
-
     def __str__(self):
         poplist = ["[ "+str(self.p[ind])+" ]" for ind in self.p]
         return ", ".join(poplist)
+
+    def initialize(self):
+        for i in range(self.popSize):
+            self.p[i] = INDIVIDUAL(i,eval_time=self.eval_time)
 
     def evaluate(self,play_blind=True,play_paused=False):
         for ind in self.p:
@@ -94,7 +94,6 @@ class POPULATION:
         """ helper for genetic alg
         """
         for i in range(1, self.popSize):  # first slot has already been filled
-            # self.p[i] = copy.deepcopy(other.p[i])
             winner = copy.deepcopy(self.tournamentSelect(other))
             winner.mutate()
             self.p[i] = winner
